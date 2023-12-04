@@ -3,24 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Bullet : AutoDestroyPoolableObject
+public class Bullet : MonoBehaviour
 {
     [HideInInspector]
     public Rigidbody2D rigidbody;
+    public float destroyTime = 1f;
     public Vector2 speed = new Vector2(200, 0);
+
+    private const string destroyMethodName = "Destroy";
 
     private void Awake() {
         rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    public override void OnEnable() {
-        base.OnEnable();
+    public void OnEnable() {
         rigidbody.velocity = speed;
+        Invoke(destroyMethodName, destroyTime);
     }
 
-    public override void OnDisable() {
-        base.OnDisable();
-
-        rigidbody.velocity = Vector2.zero;
+    public void Destroy() {
+        GameObject.Destroy(this.gameObject);
     }
 }

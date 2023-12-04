@@ -9,7 +9,7 @@ public class PlayerShoot : MonoBehaviour
     private ObjectPool bulletPool;
 
     private void Awake() {
-        bulletPool = ObjectPool.CreateInstance(bulletPrefab, 100);
+        // bulletPool = ObjectPool.CreateInstance(bulletPrefab, 100);
     }
 
     private void Start() {
@@ -20,7 +20,8 @@ public class PlayerShoot : MonoBehaviour
         WaitForSeconds wait = new WaitForSeconds(1f / fireRate);
 
         while (true) {
-            PoolableObject instance = bulletPool.GetObject();
+            // PoolableObject instance = bulletPool.GetObject();
+            Bullet instance = Instantiate(bulletPrefab);
 
             if (instance != null) {
                 instance.transform.SetParent(transform, false);
